@@ -15,5 +15,6 @@ public class MyFirstProgram {
 
         Point point = new Point(4,9, 16, 25);
         point.distance();
+        Point.distance(4, 9, 16, 25);
     }
 }
