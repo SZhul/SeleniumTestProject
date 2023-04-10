@@ -11,10 +11,9 @@ public class Point {
     }
 
 
-
-//    public static double distance(double x, double y){
-//        double result = Math.sqrt((x2 - x1)*(x2 - x1)+(y2 - y1)*(y2 - y1));
-//        System.out.println(result);
-//        return result;
-//    }
+    public  double pointDistance(){
+        double distance = Math.sqrt((p2.x - p1.x)*(p2.x - p1.x)+(p2.y - p1.y)*(p2.y - p1.y));
+        System.out.println("Расстояние между двумя  точками равно " + distance);
+        return distance;
+    }
 }
