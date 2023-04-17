@@ -25,4 +25,19 @@ public class NavigationHelper extends HelperBase{
     public void goToHomePage() {
         click(By.linkText("home page"));
     }
+
+    public void goToEditContactsFromMainPage(){
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+    public void mainPageContactCheckbox(){
+        click(By.xpath("//input[@type='checkbox']"));
+    }
+    public void mainPageDeleteButton(){
+        click(By.xpath("//input[@value='Delete']"));
+    }
+
+    public void mainPageAfterDeleteAllertClick(){
+        wd.switchTo().alert().accept();
+    }
+
 }

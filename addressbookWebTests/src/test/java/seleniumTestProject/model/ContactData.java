@@ -1,23 +1,23 @@
 package seleniumTestProject.model;
 
 public class ContactData {
-    private final String name;
-    private final String secondName;
-    private final String lastName;
-    private final String nickname;
-    private final String title;
-    private final String company;
-    private final String address;
-    private final String home;
-    private final String mobile;
-    private final String work;
-    private final String fax;
-    private final String email;
-    private final String homepage;
-    private final String bday;
-    private final String bmont;
-    private final String byear;
-    private final String notes;
+    private String name;
+    private String secondName;
+    private String lastName;
+    private String nickname;
+    private String title;
+    private String company;
+    private String address;
+    private String home;
+    private String mobile;
+    private String work;
+    private String fax;
+    private String email;
+    private String homepage;
+    private String bday;
+    private String bmont;
+    private String byear;
+    private String notes;
 
     public ContactData(String name, String secondName, String lastName, String nickname, String title, String company,
                        String address, String home, String mobile, String work, String fax, String email,
@@ -39,6 +39,12 @@ public class ContactData {
         this.bmont = bmont;
         this.byear = byear;
         this.notes = notes;
+    }
+
+    public ContactData(String name, String secondName, String lastName){
+        this.name = name;
+        this.secondName = secondName;
+        this.lastName = lastName;
     }
 
     public String getName() {

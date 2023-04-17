@@ -18,8 +18,19 @@ public class ContactHelper extends HelperBase {
         submitContactCreation();
     }
 
+    public void editContacts(ContactData contactData){
+        type(By.name("firstname"),contactData.getName());
+        type(By.name("middlename"), contactData.getSecondName());
+        type(By.name("lastname"), contactData.getLastName());
+        updateContactAfterEditing();
+    }
+
     public void submitContactCreation() {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+    }
+
+    public void updateContactAfterEditing(){
+        click(By.xpath("//div[@id='content']/form/input[22]"));
     }
 
     public void fillNotes(String notes) {
