@@ -26,20 +26,10 @@ public class ApplicationManager {
     private JavascriptExecutor js;
     private String browser;
 
-    public ApplicationManager(String browser) {
-        this.browser = browser;
-    }
+
 
     public void init() {
-        if (browser.equals(FIREFOX.browserName())){
-            wd = new FirefoxDriver();
-        }
-        else if (browser.equals(CHROME.browserName())) {
-            wd = new ChromeDriver();
-        }
-        else if (browser.equals(IE.browserName())){
-            wd = new InternetExplorerDriver();
-        }
+
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(wd);
