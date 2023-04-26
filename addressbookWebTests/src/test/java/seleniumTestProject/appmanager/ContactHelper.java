@@ -132,7 +132,7 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.name("firstname")).sendKeys(name);
     }
 
-    public void createNewContact(ContactData contact, boolean creation) {
+    public void createNewContact(ContactData contact) {
         fillContacts(contact, true);
         submitContactCreation();
     }
