@@ -3,6 +3,7 @@ package seleniumTestProject.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import seleniumTestProject.model.ContactData;
 
 public class ContactHelper extends HelperBase {
@@ -11,18 +12,16 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void fillContacts(ContactData contactData) {
+    public void fillContacts(ContactData contactData, boolean creation) {
         type(By.name("firstname"),contactData.getName());
         type(By.name("middlename"), contactData.getSecondName());
         type(By.name("lastname"), contactData.getLastName());
-        submitContactCreation();
-    }
 
-    public void editContacts(ContactData contactData){
-        type(By.name("firstname"),contactData.getName());
-        type(By.name("middlename"), contactData.getSecondName());
-        type(By.name("lastname"), contactData.getLastName());
-        updateContactAfterEditing();
+        if(creation){
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } else{
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void submitContactCreation() {

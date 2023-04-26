@@ -4,6 +4,7 @@ public class ContactData {
     private String name;
     private String secondName;
     private String lastName;
+    private String group;
     private String nickname;
     private String title;
     private String company;
@@ -45,6 +46,13 @@ public class ContactData {
         this.name = name;
         this.secondName = secondName;
         this.lastName = lastName;
+    }
+
+    public ContactData(String name, String secondName, String lastName, String group){
+        this.name = name;
+        this.secondName = secondName;
+        this.lastName = lastName;
+        this.group = group;
     }
 
     public String getName() {
@@ -113,5 +121,9 @@ public class ContactData {
 
     public String getNotes() {
         return notes;
+    }
+
+    public String getGroup() {
+        return group;
     }
 }
