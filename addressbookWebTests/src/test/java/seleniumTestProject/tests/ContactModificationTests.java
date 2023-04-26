@@ -7,6 +7,11 @@ public class ContactModificationTests extends TestBase {
 
     @Test
     public void testContactModification(){
+        if(! app.getNavigationHelper().isThereAEditContactIcon()){
+            app.getNavigationHelper().addNewContact();
+            app.getContactHelper().createNewContact(new ContactData("Имя", "Отчество", "Фамилия", "testModify1"), true);
+            app.getNavigationHelper().goToHomePage();
+        }
         app.getNavigationHelper().goToEditContactsFromMainPage();
         app.getContactHelper().fillContacts(new ContactData("AfterEdit Name", "AfterEdin SecondName", "AfterEdit LastName", null), false);
         app.getContactHelper().updateContactAfterEditing();

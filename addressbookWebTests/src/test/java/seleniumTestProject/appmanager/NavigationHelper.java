@@ -40,7 +40,7 @@ public class NavigationHelper extends HelperBase{
         click(By.xpath("//img[@alt='Edit']"));
     }
     public void mainPageContactCheckbox(){
-        click(By.xpath("//input[@type='checkbox']"));
+        click(By.name("selected[]"));
     }
     public void mainPageDeleteButton(){
         click(By.xpath("//input[@value='Delete']"));
@@ -50,4 +50,11 @@ public class NavigationHelper extends HelperBase{
         wd.switchTo().alert().accept();
     }
 
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public boolean isThereAEditContactIcon() {
+        return isElementPresent(By.xpath("//img[@alt='Edit']"));
+    }
 }
