@@ -132,8 +132,12 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.name("firstname")).sendKeys(name);
     }
 
-    public void createNewContact(ContactData contact) {
-        fillContacts(contact, true);
-        submitContactCreation();
+    public void createNewContact(ContactData contact, boolean creation) {
+        if(creation){
+            fillContacts(contact, true);
+            submitContactCreation();
+        } else{
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 }
