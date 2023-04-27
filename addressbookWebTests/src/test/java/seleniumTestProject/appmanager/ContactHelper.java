@@ -1,6 +1,7 @@
 package seleniumTestProject.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -17,11 +18,19 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), contactData.getSecondName());
         type(By.name("lastname"), contactData.getLastName());
 
+
         if(creation){
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            if((isElementPresent(By.xpath("//select[@name='new_group']//option[@value!='[none]']")))){
+                new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
+            }
+            else{
+                Assert.assertFalse(isElementPresent(By.name("new_group")), "Нет групп для добавления контакта");
+            }
         } else{
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
+            Assert.assertFalse(isElementPresent(By.name("new_group")), "Нет групп для добавления контакта");
         }
+
+
     }
 
     public void submitContactCreation() {

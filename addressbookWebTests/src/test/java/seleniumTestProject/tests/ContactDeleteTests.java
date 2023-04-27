@@ -9,7 +9,7 @@ public class ContactDeleteTests extends TestBase{
     public void testContactDelete(){
         if(! app.getNavigationHelper().isThereAContact()){
             app.getNavigationHelper().addNewContact();
-            app.getContactHelper().createNewContact(new ContactData("Вася", "Петя", "Сережа", "testModify1"), true);
+            app.getContactHelper().createNewContact(new ContactData("Вася", "Петя", "Сережа"), true);
             app.getNavigationHelper().goToHomePage();
         }
         app.getNavigationHelper().mainPageContactCheckbox();
