@@ -34,12 +34,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/input[22]"));
     }
 
-    public void createNewContact(ContactData contact, boolean creation) {
-        if (creation) {
+    public void createNewContact(ContactData contact) {
             fillContacts(contact, true);
             submitContactCreation();
-        } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
     }
 }
