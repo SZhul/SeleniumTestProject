@@ -6,12 +6,12 @@ import seleniumTestProject.model.ContactData;
 public class ContactCreationTests extends TestBase {
 
     @Test
-    public void testContactCreation() throws Exception{
+    public void testContactCreation() throws Exception {
         app.getNavigationHelper().addNewContact();
         app.getContactHelper().fillContacts(new ContactData(
-                "Создаем",
-                "Тестовый",
-                "Контакт"),
+                        "Создаем",
+                        "Тестовый",
+                        "Контакт"),
                 true);
         app.getContactHelper().submitContactCreation();
         app.getNavigationHelper().goToHomePage();

@@ -10,11 +10,10 @@ public class ContactModificationTests extends TestBase {
         if (!app.getNavigationHelper().isThereAEditContactIcon()) {
             app.getNavigationHelper().addNewContact();
             app.getContactHelper().createNewContact(
-                    new ContactData (
+                    new ContactData(
                             "Создаем",
                             "Тестовый контакт",
-                            "Для модификации"),
-                    true);
+                            "Для модификации"));
             app.getNavigationHelper().goToHomePage();
         }
         app.getNavigationHelper().goToEditContactsFromMainPage();
