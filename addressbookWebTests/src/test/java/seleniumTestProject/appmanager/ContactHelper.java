@@ -18,9 +18,12 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"), contactData.getLastName());
 
         if (creation) {
-            boolean isPresent = isElementPresent(By.xpath("//select[@name='new_group']//option[@value!='[none]']"));
-            Assert.assertTrue(isPresent, "Нет групп для добавления контакта");
-            new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
+            if((isElementPresent(By.xpath("//select[@name='new_group']//option[@value!='[none]']")))){
+                new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
+            }
+            else{
+                new Select(wd.findElement(By.name("new_group"))).selectByValue("[none]");
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")), "Нет групп для добавления контакта");
         }
