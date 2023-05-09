@@ -2,9 +2,14 @@ package seleniumTestProject.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import seleniumTestProject.model.ContactData;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -40,5 +45,23 @@ public class ContactHelper extends HelperBase {
     public void createNewContact(ContactData contact) {
             fillContacts(contact, true);
             submitContactCreation();
+    }
+
+    public int getContactCount() {
+        return wd.findElements(By.xpath("//*[@name='selected[]']")).size();
+    }
+
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
+        for (WebElement e : elements){
+            String name = e.findElement(By.xpath("//table[@id='maintable']//*[@name='entry']//td[3]")).getText();
+            String secondName = e.findElement(By.xpath("//table[@id='maintable']//*[@name='entry']//td[2]")).getText();
+            int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData(id, name, secondName);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }

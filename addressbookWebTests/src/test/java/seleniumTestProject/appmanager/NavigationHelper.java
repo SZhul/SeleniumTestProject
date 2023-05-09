@@ -2,6 +2,11 @@ package seleniumTestProject.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class NavigationHelper extends HelperBase{
 
@@ -26,6 +31,10 @@ public class NavigationHelper extends HelperBase{
         click(By.linkText("home page"));
     }
 
+    public void clickHomePageTopMenu(){
+        click(By.xpath("//a[text()='home']"));
+    }
+
     public void logout() {
         click(By.linkText("Logout"));
     }
@@ -36,11 +45,11 @@ public class NavigationHelper extends HelperBase{
 
 
 
-    public void goToEditContactsFromMainPage(){
-        click(By.xpath("//img[@alt='Edit']"));
+    public void goToEditContactsFromMainPage(int index){
+        wd.findElements(By.xpath("//*[@title='Edit']")).get(index).click();
     }
-    public void mainPageContactCheckbox(){
-        click(By.name("selected[]"));
+    public void mainPageContactCheckboxClick(int index){
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
     public void mainPageDeleteButton(){
         click(By.xpath("//input[@value='Delete']"));
@@ -56,5 +65,14 @@ public class NavigationHelper extends HelperBase{
 
     public boolean isThereAEditContactIcon() {
         return isElementPresent(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public WebElement waitForElementPresent(By by, String errorMessage, Duration timeOutInSeconds)
+    {
+        WebDriverWait wait = new WebDriverWait(wd, timeOutInSeconds);
+        wait.withMessage(errorMessage + "\n");
+        return wait.until(
+                ExpectedConditions.presenceOfElementLocated(by)
+        );
     }
 }
