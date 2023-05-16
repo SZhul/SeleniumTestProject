@@ -5,25 +5,24 @@ import org.testng.annotations.Test;
 import seleniumTestProject.model.ContactData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 
 
 public class ContactCreationTests extends TestBase {
 
-    @Test
+    @Test()
     public void testContactCreation() throws Exception {
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getNavigationHelper().addNewContact();
-        ContactData contact = new ContactData(
-                "Создаем новый",
-                "Контакт");
-        app.getContactHelper().fillContacts((contact),
+        List<ContactData> before = app.contact().list();
+        ContactData contact = new ContactData().withName("Создаем новый").withLastName("Контакт");
+
+        app.goTo().addNewContact();
+
+        app.contact().fillContacts((contact),
                 true);
-        app.getContactHelper().submitContactCreation();
-        app.getNavigationHelper().goToHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
+        app.contact().submitContactCreation();
+        app.goTo().homePage();
+        List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() + 1);
 
 

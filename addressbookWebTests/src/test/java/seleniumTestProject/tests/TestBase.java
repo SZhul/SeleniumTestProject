@@ -2,7 +2,9 @@ package seleniumTestProject.tests;
 
 
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import seleniumTestProject.appmanager.ApplicationManager;
 
 
@@ -10,14 +12,14 @@ import static org.openqa.selenium.remote.Browser.*;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(FIREFOX.browserName());
+    protected static final ApplicationManager app = new ApplicationManager(FIREFOX.browserName());
 
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() throws Exception {
         app.init();
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void tearDown() throws Exception {
         app.stop();
     }

@@ -2,6 +2,7 @@ package seleniumTestProject.tests;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import seleniumTestProject.model.ContactData;
 
@@ -11,34 +12,28 @@ import java.util.List;
 
 public class ContactDeleteTests extends TestBase {
 
-    @Test
-    public void testContactDelete() {
-        if (!app.getNavigationHelper().isThereAContact()) {
-            app.getNavigationHelper().addNewContact();
-            app.getContactHelper().createNewContact(new ContactData(
-                    "Создаем",
-                    "Тестовый контакт для удаления")
-            );
-            app.getNavigationHelper().goToHomePage();
+    @BeforeMethod
+    public void ensurePreconditions(){
+        if (!app.goTo().isThereAContact()) {
+            app.goTo().addNewContact();
+            app.contact().create(new ContactData().withName("Создаем").withLastName("Контакт для удаления"));
+            app.goTo().homePage();
         }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getNavigationHelper().mainPageContactCheckboxClick(before.size() - 1);
-        app.getNavigationHelper().mainPageDeleteButton();
-        app.getNavigationHelper().mainPageAfterDeleteAllertClick();
-        app.getNavigationHelper().waitForElementPresent(
-                By.cssSelector("div.msgbox"),
-                "Не найден элемент на странице",
-                Duration.ofSeconds(5)
-        );
-        app.getNavigationHelper().clickHomePageTopMenu();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size() - 1);
-
-
-        before.remove(before.size() - 1);
-        Assert.assertEquals(before, after);
-
     }
+
+    @Test()
+    public void testContactDelete() {
+
+        List<ContactData> before = app.contact().list();
+        int index = before.size() - 1;
+        app.goTo().delete(index);
+        List<ContactData> after = app.contact().list();
+        Assert.assertEquals(after.size(), before.size() - 1);
+        before.remove(index);
+        Assert.assertEquals(before, after);
+    }
+
+
 
 
 }

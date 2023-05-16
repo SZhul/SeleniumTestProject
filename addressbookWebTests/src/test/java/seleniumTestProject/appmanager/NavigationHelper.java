@@ -15,7 +15,7 @@ public class NavigationHelper extends HelperBase{
         super(wd);
     }
 
-    public void goToGroups() {
+    public void groupPage() {
         if(isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresent(By.name("new"))){
@@ -24,12 +24,14 @@ public class NavigationHelper extends HelperBase{
         click(By.linkText("groups"));
     }
 
-    public void goToHomePage() {
+    public void homePage() {
         if(isElementPresent(By.id("maintable"))){
             return;
         }
         click(By.linkText("home page"));
     }
+
+
 
     public void clickHomePageTopMenu(){
         click(By.xpath("//a[text()='home']"));
@@ -45,7 +47,7 @@ public class NavigationHelper extends HelperBase{
 
 
 
-    public void goToEditContactsFromMainPage(int index){
+    public void EditContactsFromMainPage(int index){
         wd.findElements(By.xpath("//*[@title='Edit']")).get(index).click();
     }
     public void mainPageContactCheckboxClick(int index){
@@ -74,5 +76,17 @@ public class NavigationHelper extends HelperBase{
         return wait.until(
                 ExpectedConditions.presenceOfElementLocated(by)
         );
+    }
+
+    public void delete(int index) {
+        mainPageContactCheckboxClick(index);
+        mainPageDeleteButton();
+        mainPageAfterDeleteAllertClick();
+        waitForElementPresent(
+                By.cssSelector("div.msgbox"),
+                "Не найден элемент на странице",
+                Duration.ofSeconds(5)
+        );
+        clickHomePageTopMenu();
     }
 }

@@ -5,34 +5,15 @@ import java.util.Objects;
 public class GroupData {
 
     private int id;
-    private final String groupName;
+    private String groupName;
 
-    private final String groupHeader;
-    private final String groupFooter;
-
-    public GroupData(int id, String groupName,  String groupHeader, String groupFooter) {
-        this.id = id;
-        this.groupName = groupName;
-        this.groupHeader = groupHeader;
-        this.groupFooter = groupFooter;
-    }
+    private String groupHeader;
 
 
-
-    public GroupData(String groupName, String groupHeader, String groupFooter) {
-        this.groupName = groupName;
-        this.id = Integer.MAX_VALUE;
-        this.groupHeader = groupHeader;
-        this.groupFooter = groupFooter;
-    }
-
+    private String groupFooter;
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getGroupName() {
@@ -46,6 +27,27 @@ public class GroupData {
     public String getGroupFooter() {
         return groupFooter;
     }
+
+    public GroupData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public GroupData withGroupName(String groupName) {
+        this.groupName = groupName;
+        return this;
+    }
+
+    public GroupData withGroupHeader(String groupHeader) {
+        this.groupHeader = groupHeader;
+        return this;
+    }
+
+    public GroupData withGroupFooter(String groupFooter) {
+        this.groupFooter = groupFooter;
+        return this;
+    }
+
 
     @Override
     public String toString() {
@@ -63,11 +65,14 @@ public class GroupData {
 
         GroupData groupData = (GroupData) o;
 
+        if (id != groupData.id) return false;
         return Objects.equals(groupName, groupData.groupName);
     }
 
     @Override
     public int hashCode() {
-        return groupName != null ? groupName.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
+        return result;
     }
 }

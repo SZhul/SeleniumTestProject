@@ -4,31 +4,11 @@ import java.util.Objects;
 
 public class ContactData {
 
-    private int id;
+    private int id = Integer.MAX_VALUE;
     private String name;
     private String secondName;
     private String lastName;
     private String group;
-
-
-    public ContactData(int id, String name, String lastName) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-    }
-
-    public ContactData(String name, String lastName) {
-        this.id = Integer.MAX_VALUE;
-        this.name = name;
-        this.lastName = lastName;
-    }
-
-    public ContactData(int id, String name, String lastName, String group) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.group = group;
-    }
 
     public String getName() {
         return name;
@@ -38,8 +18,24 @@ public class ContactData {
         return id;
     }
 
-    public void setId(int id) {
+    public ContactData withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public ContactData withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ContactData withSecondName(String secondName) {
+        this.secondName = secondName;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
     }
 
 
