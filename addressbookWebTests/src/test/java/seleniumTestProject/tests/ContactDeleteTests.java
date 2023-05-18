@@ -1,13 +1,20 @@
 package seleniumTestProject.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import seleniumTestProject.model.ContactData;
+import seleniumTestProject.model.Contacts;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class ContactDeleteTests extends TestBase {
@@ -24,16 +31,15 @@ public class ContactDeleteTests extends TestBase {
     @Test()
     public void testContactDelete() {
 
-        List<ContactData> before = app.contact().list();
-        int index = before.size() - 1;
-        app.goTo().delete(index);
-        List<ContactData> after = app.contact().list();
+        Contacts before = app.contact().allHamcrest();
+        ContactData deletedContact = before.iterator().next();
+        app.goTo().delete(deletedContact);
+        Contacts after = app.contact().allHamcrest();
         Assert.assertEquals(after.size(), before.size() - 1);
-        before.remove(index);
-        Assert.assertEquals(before, after);
+
+
+
+        assertThat(after, equalTo(before.withOut(deletedContact)));
+
     }
-
-
-
-
 }

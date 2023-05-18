@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import seleniumTestProject.model.ContactData;
 
 import java.time.Duration;
 
@@ -47,11 +48,19 @@ public class NavigationHelper extends HelperBase{
 
 
 
-    public void EditContactsFromMainPage(int index){
-        wd.findElements(By.xpath("//*[@title='Edit']")).get(index).click();
+    public void EditContactsFromMainPageById(int id){
+        wd.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
+    }
+
+    public void EditContactsFromMainPage(int id){
+        wd.findElement(By.xpath("//*[@title='Edit']")).click();
     }
     public void mainPageContactCheckboxClick(int index){
         wd.findElements(By.name("selected[]")).get(index).click();
+    }
+
+    public void mainPageContactCheckboxClickById(int id){
+        wd.findElement(By.xpath("//input[@value='" + id + "']")).click();
     }
     public void mainPageDeleteButton(){
         click(By.xpath("//input[@value='Delete']"));
@@ -89,4 +98,18 @@ public class NavigationHelper extends HelperBase{
         );
         clickHomePageTopMenu();
     }
+
+    public void delete(ContactData contact) {
+        mainPageContactCheckboxClickById(contact.getId());
+        mainPageDeleteButton();
+        mainPageAfterDeleteAllertClick();
+        waitForElementPresent(
+                By.cssSelector("div.msgbox"),
+                "Не найден элемент на странице",
+                Duration.ofSeconds(5)
+        );
+        clickHomePageTopMenu();
+    }
+
+
 }
