@@ -9,7 +9,7 @@ import seleniumTestProject.model.ContactData;
 
 import java.time.Duration;
 
-public class NavigationHelper extends HelperBase{
+public class NavigationHelper extends HelperBase {
 
 
     public NavigationHelper(WebDriver wd) {
@@ -17,24 +17,23 @@ public class NavigationHelper extends HelperBase{
     }
 
     public void groupPage() {
-        if(isElementPresent(By.tagName("h1"))
+        if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Groups")
-                && isElementPresent(By.name("new"))){
+                && isElementPresent(By.name("new"))) {
             return;
         }
         click(By.linkText("groups"));
     }
 
     public void homePage() {
-        if(isElementPresent(By.id("maintable"))){
+        if (isElementPresent(By.id("maintable"))) {
             return;
         }
         click(By.linkText("home page"));
     }
 
 
-
-    public void clickHomePageTopMenu(){
+    public void clickHomePageTopMenu() {
         click(By.xpath("//a[text()='home']"));
     }
 
@@ -47,26 +46,27 @@ public class NavigationHelper extends HelperBase{
     }
 
 
-
-    public void EditContactsFromMainPageById(int id){
+    public void EditContactsFromMainPageById(int id) {
         wd.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
     }
 
-    public void EditContactsFromMainPage(int id){
+    public void EditContactsFromMainPage(int id) {
         wd.findElement(By.xpath("//*[@title='Edit']")).click();
     }
-    public void mainPageContactCheckboxClick(int index){
+
+    public void mainPageContactCheckboxClick(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    public void mainPageContactCheckboxClickById(int id){
+    public void mainPageContactCheckboxClickById(int id) {
         wd.findElement(By.xpath("//input[@value='" + id + "']")).click();
     }
-    public void mainPageDeleteButton(){
+
+    public void mainPageDeleteButton() {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    public void mainPageAfterDeleteAllertClick(){
+    public void mainPageAfterDeleteAllertClick() {
         wd.switchTo().alert().accept();
     }
 
@@ -78,8 +78,7 @@ public class NavigationHelper extends HelperBase{
         return isElementPresent(By.xpath("//img[@alt='Edit']"));
     }
 
-    public WebElement waitForElementPresent(By by, String errorMessage, Duration timeOutInSeconds)
-    {
+    public WebElement waitForElementPresent(By by, String errorMessage, Duration timeOutInSeconds) {
         WebDriverWait wait = new WebDriverWait(wd, timeOutInSeconds);
         wait.withMessage(errorMessage + "\n");
         return wait.until(
@@ -109,6 +108,22 @@ public class NavigationHelper extends HelperBase{
                 Duration.ofSeconds(5)
         );
         clickHomePageTopMenu();
+    }
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        initContactModificatonById(contact.getId());
+        String firstName = wd.findElement(By.xpath("//input[@name='firstname']")).getAttribute("value");
+        String lastName = wd.findElement(By.xpath("//input[@name='lastname']")).getAttribute("value");
+        String homePhone = wd.findElement(By.xpath("//input[@name='home']")).getAttribute("value");
+        String mobilePhone = wd.findElement(By.xpath("//input[@name='mobile']")).getAttribute("value");
+        String workPhone = wd.findElement(By.xpath("//input[@name='work']")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withName(firstName).withLastName(lastName).withHomePhone(homePhone)
+                .withMobilePhone(mobilePhone).withWorkPhone(workPhone);
+    }
+
+    private void initContactModificatonById(int id) {
+        wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click();
     }
 
 

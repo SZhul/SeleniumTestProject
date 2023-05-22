@@ -16,7 +16,7 @@ public class ContactCreationTests extends TestBase {
 
     @Test()
     public void testContactCreation() throws Exception {
-        Contacts before = app.contact().allHamcrest();
+        Contacts before = app.contact().allHamcrestPhones();
         ContactData contact = new ContactData().withName("Создаем новый").withLastName("Контакт");
         app.goTo().addNewContact();
 
@@ -24,7 +24,7 @@ public class ContactCreationTests extends TestBase {
                 true);
         app.contact().submitContactCreation();
         app.goTo().homePage();
-        Contacts after = app.contact().allHamcrest();
+        Contacts after = app.contact().allHamcrestPhones();
         assertThat(after.size(), equalTo(before.size() + 1));
 
         assertThat(after, equalTo(

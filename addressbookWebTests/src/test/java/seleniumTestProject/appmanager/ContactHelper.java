@@ -8,7 +8,6 @@ import org.testng.Assert;
 import seleniumTestProject.model.ContactData;
 import seleniumTestProject.model.Contacts;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -80,22 +79,43 @@ public class ContactHelper extends HelperBase {
             String name = e.findElement(By.xpath(".//td[3]")).getText();
             String lastName = e.findElement(By.xpath(".//td[2]")).getText();
             int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName);
+            String[] phones = e.findElement(By.xpath(".//td[6]")).getText().split("\n");
+            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
+                    .withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]);
             contacts.add(contact);
         }
         return contacts;
     }
 
-    public Contacts allHamcrest() {
+    public Contacts allHamcrestPhones() {
         Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
         for (WebElement e : elements) {
             String name = e.findElement(By.xpath(".//td[3]")).getText();
             String lastName = e.findElement(By.xpath(".//td[2]")).getText();
             int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName);
+            String[] phones = e.findElement(By.xpath(".//td[6]")).getText().split("\n");
+            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
+                    .withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]);
             contacts.add(contact);
         }
         return contacts;
     }
+
+    public Contacts allHamcrestAllPhones() {
+        Contacts contacts = new Contacts();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
+        for (WebElement e : elements) {
+            String name = e.findElement(By.xpath(".//td[3]")).getText();
+            String lastName = e.findElement(By.xpath(".//td[2]")).getText();
+            int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value"));
+            String allPhones = e.findElement(By.xpath(".//td[6]")).getText();
+            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
+                    .withAllPhones(allPhones);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
+
 }
