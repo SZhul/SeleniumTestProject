@@ -24,10 +24,10 @@ public class ContactDeleteTests extends TestBase {
     @Test()
     public void testContactDelete() {
 
-        Contacts before = app.contact().allHamcrestPhones();
+        Contacts before = app.contact().allHamcrestSplitPhones();
         ContactData deletedContact = before.iterator().next();
         app.goTo().delete(deletedContact);
-        Contacts after = app.contact().allHamcrestPhones();
+        Contacts after = app.contact().allHamcrestSplitPhones();
         Assert.assertEquals(after.size(), before.size() - 1);
 
 

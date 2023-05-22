@@ -15,7 +15,7 @@ public class ContactPhoneTest extends TestBase{
     @Test
     public void testContactPhones(){
         app.goTo().homePage();
-        ContactData contact = app.contact().allHamcrestPhones().iterator().next();
+        ContactData contact = app.contact().allHamcrestSplitPhones().iterator().next();
         ContactData contactInfoFromEditForm = app.goTo().infoFromEditForm(contact);
 
         assertThat(contact.getHomePhone(), equalTo(cleaned(contactInfoFromEditForm.getHomePhone())));

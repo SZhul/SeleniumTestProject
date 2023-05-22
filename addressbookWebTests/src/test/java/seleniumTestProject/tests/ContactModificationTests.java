@@ -24,7 +24,7 @@ public class ContactModificationTests extends TestBase {
 
     @Test()
     public void testContactModification() {
-        Contacts before = app.contact().allHamcrestPhones();
+        Contacts before = app.contact().allHamcrestSplitPhones();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId((modifiedContact).getId())
@@ -33,7 +33,7 @@ public class ContactModificationTests extends TestBase {
         app.goTo().EditContactsFromMainPageById(modifiedContact.getId());
         app.contact().modify(contact);
         app.goTo().homePage();
-        Contacts after = app.contact().allHamcrestPhones();
+        Contacts after = app.contact().allHamcrestSplitPhones();
         Assert.assertEquals(after.size(), before.size());
 
         assertThat(after, equalTo(before.withOut(modifiedContact).withAdded(contact)));

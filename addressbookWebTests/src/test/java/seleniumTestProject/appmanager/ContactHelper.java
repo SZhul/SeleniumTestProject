@@ -87,7 +87,7 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    public Contacts allHamcrestPhones() {
+    public Contacts allHamcrestSplitPhones() {
         Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
         for (WebElement e : elements) {
@@ -112,6 +112,51 @@ public class ContactHelper extends HelperBase {
             String allPhones = e.findElement(By.xpath(".//td[6]")).getText();
             ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
                     .withAllPhones(allPhones);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
+    public Contacts allHamcrestSplitEmails() {
+        Contacts contacts = new Contacts();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
+        for (WebElement e : elements) {
+            String name = e.findElement(By.xpath(".//td[3]")).getText();
+            String lastName = e.findElement(By.xpath(".//td[2]")).getText();
+            int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value"));
+            String[] emails = e.findElement(By.xpath(".//td[5]")).getText().split("\n");
+            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
+                    .withEmail(emails[0]).withEmail2(emails[1]).withEmail3(emails[2]);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
+    public Contacts allHamcrestAllEmails() {
+        Contacts contacts = new Contacts();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
+        for (WebElement e : elements) {
+            String name = e.findElement(By.xpath(".//td[3]")).getText();
+            String lastName = e.findElement(By.xpath(".//td[2]")).getText();
+            int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value"));
+            String allEmails = e.findElement(By.xpath(".//td[5]")).getText();
+            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
+                    .withAllEmails(allEmails);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
+    public Contacts allHamcrestAddress() {
+        Contacts contacts = new Contacts();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
+        for (WebElement e : elements) {
+            String name = e.findElement(By.xpath(".//td[3]")).getText();
+            String lastName = e.findElement(By.xpath(".//td[2]")).getText();
+            int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value"));
+            String allAddresses = e.findElement(By.xpath(".//td[4]")).getText();
+            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
+                    .withAddress(allAddresses);
             contacts.add(contact);
         }
         return contacts;
