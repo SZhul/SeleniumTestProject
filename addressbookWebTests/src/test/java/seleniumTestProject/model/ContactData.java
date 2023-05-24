@@ -1,5 +1,6 @@
 package seleniumTestProject.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
@@ -19,6 +20,8 @@ public class ContactData {
     private String email3;
     private String allEmails;
     private String address;
+    private File photo;
+
 
 
     @Override
@@ -107,6 +110,16 @@ public class ContactData {
         return this;
     }
 
+
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
+
+    public File getPhoto() {
+        return photo;
+    }
 
     public String getEmail() {
         return email;

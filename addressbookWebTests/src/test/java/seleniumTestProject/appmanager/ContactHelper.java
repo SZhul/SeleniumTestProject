@@ -8,6 +8,7 @@ import org.testng.Assert;
 import seleniumTestProject.model.ContactData;
 import seleniumTestProject.model.Contacts;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("firstname"), contactData.getName());
         type(By.name("middlename"), contactData.getSecondName());
         type(By.name("lastname"), contactData.getLastName());
+        attach(By.name("photo"), contactData.getPhoto());
 
         if (creation) {
             if ((isElementPresent(By.xpath("//select[@name='new_group']//option[@value!='[none]']")))) {
