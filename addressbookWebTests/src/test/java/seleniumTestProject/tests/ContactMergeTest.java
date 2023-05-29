@@ -13,34 +13,47 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactMergeTest extends TestBase {
 
     @Test
-    public void testContactPhonesWithCollect() {
+    public void testAllCollect(){
         app.goTo().homePage();
-        ContactData contact = app.contact().allHamcrestAllPhones().iterator().next();
+        ContactData contact = app.contact().allHamcrest().iterator().next();
         ContactData contactInfoFromEditForm = app.goTo().infoFromEditForm(contact);
+
 
 
         assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
-    }
-
-    @Test
-    public void testContactEmailsWithCollect() {
-        app.goTo().homePage();
-        ContactData contact = app.contact().allHamcrestAllEmails().iterator().next();
-        ContactData contactInfoFromEditForm = app.goTo().infoFromEditForm(contact);
-
-
         assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
-    }
-
-    @Test
-    public void testAddressesWithCollect() {
-        app.goTo().homePage();
-        ContactData contact = app.contact().allHamcrestAddress().iterator().next();
-        ContactData contactInfoFromEditForm = app.goTo().infoFromEditForm(contact);
-
-
         assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
     }
+
+//    @Test
+//    public void testContactPhonesWithCollect() {
+//        app.goTo().homePage();
+//        ContactData contact = app.contact().allHamcrestAllPhones().iterator().next();
+//        ContactData contactInfoFromEditForm = app.goTo().infoFromEditForm(contact);
+//
+//
+//        assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+//    }
+//
+//    @Test
+//    public void testContactEmailsWithCollect() {
+//        app.goTo().homePage();
+//        ContactData contact = app.contact().allHamcrestAllEmails().iterator().next();
+//        ContactData contactInfoFromEditForm = app.goTo().infoFromEditForm(contact);
+//
+//
+//        assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
+//    }
+//
+//    @Test
+//    public void testAddressesWithCollect() {
+//        app.goTo().homePage();
+//        ContactData contact = app.contact().allHamcrestAddress().iterator().next();
+//        ContactData contactInfoFromEditForm = app.goTo().infoFromEditForm(contact);
+//
+//
+//        assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
+//    }
 
 
     private String mergePhones(ContactData contact) {

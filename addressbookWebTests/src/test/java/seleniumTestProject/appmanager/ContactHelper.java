@@ -119,6 +119,23 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
+    public Contacts allHamcrest(){
+        Contacts contacts = new Contacts();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
+        for (WebElement e : elements) {
+            String name = e.findElement(By.xpath(".//td[3]")).getText();
+            String lastName = e.findElement(By.xpath(".//td[2]")).getText();
+            int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value"));
+            String allPhones = e.findElement(By.xpath(".//td[6]")).getText();
+            String allEmails = e.findElement(By.xpath(".//td[5]")).getText();
+            String allAddresses = e.findElement(By.xpath(".//td[4]")).getText();
+            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
+                    .withAllPhones(allPhones).withAllEmails(allEmails).withAddress(allAddresses);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
     public Contacts allHamcrestSplitEmails() {
         Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
