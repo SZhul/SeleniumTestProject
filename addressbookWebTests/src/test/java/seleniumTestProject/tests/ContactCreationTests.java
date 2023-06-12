@@ -36,17 +36,16 @@ public class ContactCreationTests extends TestBase {
             line = reader.readLine();
         }
         Gson gson = new Gson();
-        List<ContactData> contacts= gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
-        return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+        List<ContactData> groups = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
+        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
     }
 
     @Test(dataProvider = "validContactsFromJson")
-    public void testContactCreation() throws Exception {
+    public void testContactCreation(ContactData contact) throws Exception {
         Contacts before = app.contact().allHamcrestAllPhones();
-        ContactData contact = new ContactData().withName("Создаем новый").withLastName("Контакт");
         app.goTo().addNewContact();
         File photo = new File("src/test/resources/kitty.jpg");
-        app.contact().fillContacts((contact.withName("test_name").withLastName("test_surname").withPhoto(photo)),
+        app.contact().fillContacts((contact),
                 true);
         app.contact().submitContactCreation();
         app.goTo().homePage();

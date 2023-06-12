@@ -61,8 +61,8 @@ public class ContactDataGenerator {
                 contacts.add(new ContactData()
                         .withName(String.format("Name %s", i))
                         .withLastName(String.format("Last Name %s", i))
-                        .withMobilePhone(String.format("Phone %s", i))
-                        .withEmail(String.format("Email %s", i)));
+                        .withMobilePhone(String.format("+7983233000%s", i))
+                        .withEmail(String.format("testemail%s@mail.ru", i)));
             }
             return contacts;
         }
