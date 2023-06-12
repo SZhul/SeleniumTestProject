@@ -1,20 +1,26 @@
 package seleniumTestProject.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
 
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String name;
     private String secondName;
+    @Expose
     private String lastName;
     private String group;
+
     private String homePhone;
+    @Expose
     private String mobilePhone;
     private String workPhone;
     private String allPhones;
-
+    @Expose
     private String email;
     private String email2;
     private String email3;
