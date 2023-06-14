@@ -28,8 +28,8 @@ public class ContactModificationTests extends TestBase {
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId((modifiedContact).getId())
-                .withName("Изменяем")
-                .withLastName("Еще один контакт");
+                .withName("Change")
+                .withLastName("Next Contact");
         app.goTo().EditContactsFromMainPageById(modifiedContact.getId());
         app.contact().modify(contact);
         app.goTo().homePage();

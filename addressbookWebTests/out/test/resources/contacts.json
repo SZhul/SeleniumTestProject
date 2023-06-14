@@ -1,20 +1,18 @@
 [
   {
     "name": "Name 0",
-    "lastName": "Last Name 0",
+    "lastName": "LastName 0",
+    "homePhone": "79832330000",
     "mobilePhone": "+79832330000",
+    "workPhone": "7 983 233 00 00",
     "email": "testemail0@mail.ru"
   },
   {
     "name": "Name 1",
-    "lastName": "Last Name 1",
+    "lastName": "LastName 1",
+    "homePhone": "79832330001",
     "mobilePhone": "+79832330001",
+    "workPhone": "7 983 233 00 01",
     "email": "testemail1@mail.ru"
-  },
-  {
-    "name": "Name 2",
-    "lastName": "Last Name 2",
-    "mobilePhone": "+79832330002",
-    "email": "testemail2@mail.ru"
   }
 ]

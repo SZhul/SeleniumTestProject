@@ -31,7 +31,7 @@ public class ContactDataGenerator {
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
-        } catch (ParameterException ex){
+        } catch (ParameterException ex) {
             jCommander.usage();
             return;
         }
@@ -47,25 +47,25 @@ public class ContactDataGenerator {
         }
     }
 
-        private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
-            Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-            String json = gson.toJson(contacts);
-            Writer writer = new FileWriter(file);
+    private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(contacts);
+        try (Writer writer = new FileWriter(file)) {
             writer.write(json);
-            writer.close();
         }
+    }
 
-        private List<ContactData> generateContacts(int count) {
-            List<ContactData> contacts = new ArrayList<ContactData>();
-            for (int i = 0; i < count; i++) {
-                contacts.add(new ContactData()
-                        .withName(String.format("Name %s", i))
-                        .withLastName(String.format("Last Name %s", i))
-                        .withMobilePhone(String.format("+7983233000%s", i))
-                        .withEmail(String.format("testemail%s@mail.ru", i)));
-            }
-            return contacts;
+    private List<ContactData> generateContacts(int count) {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        for (int i = 0; i < count; i++) {
+            contacts.add(new ContactData()
+                    .withName(String.format("Name %s", i))
+                    .withLastName(String.format("LastName %s", i))
+                    .withMobilePhone(String.format("+7983233000%s", i))
+                    .withHomePhone(String.format("7983233000%s", i))
+                    .withWorkPhone(String.format("7 983 233 00 0%s", i))
+                    .withEmail(String.format("testemail%s@mail.ru", i)));
         }
-
-
+        return contacts;
+    }
 }
