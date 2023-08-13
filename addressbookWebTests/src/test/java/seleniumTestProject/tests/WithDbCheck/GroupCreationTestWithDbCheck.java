@@ -1,27 +1,27 @@
-package seleniumTestProject.tests;
+package seleniumTestProject.tests.WithDbCheck;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import seleniumTestProject.model.GroupData;
 import seleniumTestProject.model.Groups;
+import seleniumTestProject.tests.TestBase;
 
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class GroupCreationTest extends TestBase {
+public class GroupCreationTestWithDbCheck extends TestBase {
 
 
 
@@ -60,12 +60,12 @@ public class GroupCreationTest extends TestBase {
 
 
   @Test (dataProvider = "validGroupsFromJson")
-  public void testGroupCreation(GroupData group) throws Exception {
+  public void testGroupCreationWithDbCheck(GroupData group) throws Exception {
     app.goTo().groupPage();
-    Groups before = app.group().all();
+    Groups before = app.db().groups();
     app.group().create(group);
     assertThat(app.group().getGroupCount(), equalTo(before.size() + 1));
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
 
 
     assertThat(after, equalTo(before.withAdded(

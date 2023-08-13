@@ -1,54 +1,81 @@
 package seleniumTestProject.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name="addressbook")
 public class ContactData {
 
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
+    @Column(name = "firstname")
     private String name;
+
+    @Transient
     private String secondName;
     @Expose
+    @Column(name="lastname")
     private String lastName;
+
+    @Transient
     private String group;
     @Expose
+    @Column(name="home")
+    @Type(type = "text")
     private String homePhone;
     @Expose
+
+    @Column(name="mobile")
+    @Type(type = "text")
     private String mobilePhone;
     @Expose
+
+    @Column(name="work")
+    @Type(type = "text")
     private String workPhone;
+
+    @Transient
     private String allPhones;
     @Expose
+    @Column(name="email")
+    @Type(type = "text")
     private String email;
+
+    @Transient
     private String email2;
+
+    @Transient
     private String email3;
+
+    @Transient
     private String allEmails;
+
+    @Transient
     private String address;
-    private File photo;
+
+    @Column(name="photo")
+    @Type(type = "text")
+    private String photo;
 
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactData that = (ContactData) o;
-
-        if (id != that.id) return false;
-        if (!Objects.equals(name, that.name)) return false;
-        return Objects.equals(lastName, that.lastName);
+    public File getPhoto() {
+        if (photo != null) {
+            return new File(photo);
+        } else {
+            return null;
+        }
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        return result;
+    public ContactData withPhoto(File photo) {
+        this.photo = photo.getPath();
+        return this;
     }
 
     public ContactData withId(int id) {
@@ -119,14 +146,8 @@ public class ContactData {
 
 
 
-    public ContactData withPhoto(File photo) {
-        this.photo = photo;
-        return this;
-    }
 
-    public File getPhoto() {
-        return photo;
-    }
+
 
     public String getEmail() {
         return email;
@@ -183,6 +204,27 @@ public class ContactData {
     public int getId() {
         return id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (id != that.id) return false;
+        if (!Objects.equals(name, that.name)) return false;
+        return Objects.equals(lastName, that.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        return result;
+    }
+
 
     @Override
     public String toString() {

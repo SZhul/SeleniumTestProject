@@ -23,6 +23,7 @@ public class ApplicationManager {
     private ContactHelper contactHelper;
     private JavascriptExecutor js;
     private String browser;
+    private DbHelper dbHelper;
 
     public ApplicationManager(String browser)
     {
@@ -33,8 +34,8 @@ public class ApplicationManager {
 
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
-
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+        dbHelper = new DbHelper();
         if (browser.equals(FIREFOX.browserName())) {
             wd = new FirefoxDriver();
         } else if (browser.equals(CHROME.browserName())) {
@@ -51,6 +52,7 @@ public class ApplicationManager {
         contactHelper = new ContactHelper(wd);
         js = (JavascriptExecutor) wd;
         sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
+
     }
 
     public void stop() {
@@ -71,5 +73,8 @@ public class ApplicationManager {
 
     public SessionHelper getSessionHelper() {
         return sessionHelper;
+    }
+    public DbHelper db(){
+        return dbHelper;
     }
 }
