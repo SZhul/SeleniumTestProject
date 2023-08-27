@@ -8,11 +8,17 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import seleniumTestProject.appmanager.ApplicationManager;
+import seleniumTestProject.model.GroupData;
+import seleniumTestProject.model.Groups;
 
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.openqa.selenium.remote.Browser.*;
 
 public class TestBase {
@@ -20,6 +26,17 @@ public class TestBase {
     Logger logger = LoggerFactory.getLogger(TestBase.class);
 
     protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", CHROME.browserName()));
+
+    public void verifyGroupListInUI() {
+        if(Boolean.getBoolean("verifyUI")){
+            Groups dbGroups = app.db().groups();
+            Groups uiGroups = app.group().all();
+            assertThat(uiGroups, equalTo(dbGroups.stream().map((g) -> new GroupData()
+                            .withId(g.getId())
+                            .withGroupName(g.getGroupName()))
+                    .collect(Collectors.toSet())));
+        }
+    }
 
     @BeforeSuite
     public void setUp() throws Exception {

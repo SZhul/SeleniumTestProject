@@ -110,6 +110,18 @@ public class NavigationHelper extends HelperBase {
         clickHomePageTopMenu();
     }
 
+    public void addToGroup(ContactData contact) {
+        mainPageContactCheckboxClickById(contact.getId());
+        mainPageDeleteButton();
+        mainPageAfterDeleteAllertClick();
+        waitForElementPresent(
+                By.cssSelector("div.msgbox"),
+                "Не найден элемент на странице",
+                Duration.ofSeconds(5)
+        );
+        clickHomePageTopMenu();
+    }
+
     public ContactData infoFromEditForm(ContactData contact) {
         initContactModificatonById(contact.getId());
         String firstName = wd.findElement(By.xpath("//input[@name='firstname']")).getAttribute("value");

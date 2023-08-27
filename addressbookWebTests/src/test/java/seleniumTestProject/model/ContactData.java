@@ -5,10 +5,12 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
-import java.util.Objects;
+import java.util.HashSet;
+
+import java.util.Set;
 
 @Entity
-@Table(name="addressbook")
+@Table(name = "addressbook")
 public class ContactData {
 
     @Id
@@ -21,30 +23,28 @@ public class ContactData {
     @Transient
     private String secondName;
     @Expose
-    @Column(name="lastname")
+    @Column(name = "lastname")
     private String lastName;
 
-    @Transient
-    private String group;
     @Expose
-    @Column(name="home")
+    @Column(name = "home")
     @Type(type = "text")
     private String homePhone;
     @Expose
 
-    @Column(name="mobile")
+    @Column(name = "mobile")
     @Type(type = "text")
     private String mobilePhone;
     @Expose
 
-    @Column(name="work")
+    @Column(name = "work")
     @Type(type = "text")
     private String workPhone;
 
     @Transient
     private String allPhones;
     @Expose
-    @Column(name="email")
+    @Column(name = "email")
     @Type(type = "text")
     private String email;
 
@@ -60,9 +60,15 @@ public class ContactData {
     @Transient
     private String address;
 
-    @Column(name="photo")
+    @Column(name = "photo")
     @Type(type = "text")
     private String photo;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
 
     public File getPhoto() {
@@ -145,10 +151,6 @@ public class ContactData {
     }
 
 
-
-
-
-
     public String getEmail() {
         return email;
     }
@@ -181,8 +183,8 @@ public class ContactData {
         return lastName;
     }
 
-    public String getGroup() {
-        return group;
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     public String getHomePhone() {
@@ -203,26 +205,6 @@ public class ContactData {
 
     public int getId() {
         return id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactData that = (ContactData) o;
-
-        if (id != that.id) return false;
-        if (!Objects.equals(name, that.name)) return false;
-        return Objects.equals(lastName, that.lastName);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        return result;
     }
 
 
