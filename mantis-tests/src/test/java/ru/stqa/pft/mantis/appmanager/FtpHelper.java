@@ -19,7 +19,7 @@ public class FtpHelper extends HelperBase{
     public void upload(File file, String target, String backup) throws IOException {
         ftp.connect(app.getProperty("ftp.host"));
         ftp.login(app.getProperty("ftp.login"), app.getProperty("ftp.password"));
-        ftp.deleteFile(app.getProperty(backup));
+        ftp.deleteFile(backup);
         ftp.rename(target, backup);
         ftp.enterLocalPassiveMode();
         ftp.storeFile(target, new FileInputStream(file));

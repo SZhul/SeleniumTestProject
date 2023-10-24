@@ -3,17 +3,17 @@
 <suite name="Suite1" verbose="1" >
     <test name="Groups" >
         <classes>
-            <class name="seleniumTestProject.tests.GroupCreationTest" />
-            <class name="seleniumTestProject.tests.GroupModificationTests" />
-            <class name="seleniumTestProject.tests.GroupDeleteTests" />
+            <class name="tests.GroupCreationTest" />
+            <class name="tests.GroupModificationTests" />
+            <class name="tests.GroupDeleteTests" />
         </classes>
     </test>
 
     <test name="Contacts">
         <classes>
-            <class name="seleniumTestProject.tests.ContactCreationTests"/>
-            <class name="seleniumTestProject.tests.ContactModificationTests"/>
-            <class name="seleniumTestProject.tests.ContactDeleteTests"/>
+            <class name="tests.ContactCreationTests"/>
+            <class name="tests.ContactModificationTests"/>
+            <class name="tests.ContactDeleteTests"/>
         </classes>
     </test>
 </suite>

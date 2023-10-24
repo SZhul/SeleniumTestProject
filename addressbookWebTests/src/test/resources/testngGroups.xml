@@ -3,9 +3,9 @@
 <suite name="Suite1" verbose="1" >
     <test name="Groups" >
         <classes>
-            <class name="seleniumTestProject.tests.GroupCreationTest" />
-            <class name="seleniumTestProject.tests.GroupModificationTests" />
-            <class name="seleniumTestProject.tests.GroupDeleteTests" />
+            <class name="tests.GroupCreationTest" />
+            <class name="tests.GroupModificationTests" />
+            <class name="tests.GroupDeleteTests" />
         </classes>
     </test>
 </suite>

@@ -7,6 +7,7 @@ import ru.stqa.pft.mantis.appmanager.HttpSession;
 import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
+import static ru.stqa.pft.mantis.tools.Sleep.sleep;
 
 public class LoginTest extends TestBase {
 

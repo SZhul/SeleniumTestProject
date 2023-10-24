@@ -3,9 +3,9 @@
 <suite name="Suite1" verbose="1" >
     <test name="Contacts">
         <classes>
-            <class name="seleniumTestProject.tests.ContactCreationTests"/>
-            <class name="seleniumTestProject.tests.ContactModificationTests"/>
-            <class name="seleniumTestProject.tests.ContactDeleteTests"/>
+            <class name="tests.ContactCreationTests"/>
+            <class name="tests.ContactModificationTests"/>
+            <class name="tests.ContactDeleteTests"/>
         </classes>
     </test>
 </suite>
